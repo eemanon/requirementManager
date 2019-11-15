@@ -34,8 +34,8 @@ class RequirementCard extends React.Component  {
         return (
             <Card style={{minWidth: 275, backgroundColor: this.props.color}}>
               <CardContent>
-                <Typography color="textSecondary" gutterBottom>
-                    {this.props.subcategory}
+                <Typography color="textPrimary" gutterBottom>
+                    {this.props.category} : {this.props.subcategory}
                 </Typography>
                 <Typography variant="body2" component="p">
                     {this.props.content}
