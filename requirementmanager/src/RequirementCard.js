@@ -1,11 +1,10 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
+import CardHeader from '@material-ui/core/CardHeader';
 
 
 const useStyles = {
@@ -30,13 +29,19 @@ class RequirementCard extends React.Component  {
         console.log(this.props.link);
         window.open(this.props.link, "_blank")
       }
+    returnIds = () => {
+      this.props.returnID([this.props.cardid, this.props.columnid]);
+    }
     render(){
+        const withRelation = <CardHeader avatar={this.props.relationsymbol} title={this.props.category}
+        subheader={this.props.subcategory}/>;
+        const withoutRelation = <CardHeader title={this.props.category}
+        subheader={this.props.subcategory}/>;
+      
         return (
-            <Card style={{minWidth: 275, backgroundColor: this.props.color}}>
+            <Card style={{minWidth: 275, backgroundColor: this.props.color, border: this.props.stack[this.props.columnid]===this.props.cardid?'solid':'none'}}  onClick={this.returnIds}>
+              {this.props.relationsymbol===null?withoutRelation:withRelation}
               <CardContent>
-                <Typography color="textPrimary" gutterBottom>
-                    {this.props.category} : {this.props.subcategory}
-                </Typography>
                 <Typography variant="body2" component="p">
                     {this.props.content}
                 </Typography>
