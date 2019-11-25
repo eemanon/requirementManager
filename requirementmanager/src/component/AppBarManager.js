@@ -10,8 +10,6 @@ import Typography from '@material-ui/core/Typography'
 import Papa from 'papaparse';
 
 class AppBarManager extends React.Component {
-
-    
     constructor(props){
         super(props) ; 
         this.state = {
@@ -20,8 +18,8 @@ class AppBarManager extends React.Component {
             relationsArrayData:null
         };
         this.inputOpenFileRef = React.createRef();
-        this.dataResult = null
-
+        this.dataResult = null;
+        this.updateData = this.updateData.bind(this);
     }
 
     useStyles = () => { makeStyles(theme => ({
@@ -52,7 +50,8 @@ class AppBarManager extends React.Component {
 
     updateData(result) {      
        var data = result.data ;        
-        console.log(data);       
+        console.log(data);
+       this.props.requirements(data);       
     }
 
     render(){
