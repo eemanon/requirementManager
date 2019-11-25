@@ -4,6 +4,8 @@ import './App.css';
 import RequirementCard from './RequirementCard';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import AppBarManager from './component/AppBarManager';
+
 
 const useStyles = {
   List:{
@@ -14,6 +16,7 @@ const useStyles = {
 function App() {
   return (
     <div className="App">
+      <AppBarManager></AppBarManager>
      <List style={useStyles.List} component="nav" aria-label="main mailbox folders">
         <ListItem>
             <RequirementCard category="Behaviour" subcategory="Non-Functional" color="red" link="https://github.com/eemanon/requirementManager/network" content="Note that the three doors (resp. gears) are controlled simultaneously by the same electro-valve." />
