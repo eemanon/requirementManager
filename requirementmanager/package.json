@@ -1,5 +1,6 @@
 {
   "name": "requirementmanager",
+  "homepage" : "http://mass-cara2.univ-tlse2.fr/~sebastian-andreas.si/requirementmanager",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
