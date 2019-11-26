@@ -37,13 +37,13 @@ class RequirementCard extends React.Component  {
         subheader={this.props.subcategory}/>;
         const withoutRelation = <CardHeader title={this.props.category}
         subheader={this.props.subcategory}/>;
-      
+        const img = <img src={this.props.link}  width="250px" />;
         return (
             <Card style={{minWidth: 275, backgroundColor: this.props.color, border: this.props.stack[this.props.columnid]===this.props.cardid?'solid':'none'}}  onClick={this.returnIds}>
               {this.props.relationsymbol===null?withoutRelation:withRelation}
               <CardContent>
                 <Typography variant="body2" component="p">
-                    {this.props.content}
+                    {this.props.content==="<Image>"?img:this.props.content}
                 </Typography>
               </CardContent>
               <CardActions>

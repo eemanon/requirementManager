@@ -10,7 +10,10 @@ import Button from '@material-ui/core/Button';
 const useStyles = {
   List:{
     maxWidth: 300,
+    padding: 15,
     float: "left",
+    maxHeight: 800, 
+    overflow: 'auto',
   },
 };
 
