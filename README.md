@@ -18,3 +18,5 @@ Seb
 4. cliquez sur les cards des exigences pour voir les relations
 
 NB : Vous pouvez ajouter des exigences et des relations sur la feuille excel et ré-importer les données, chaque export CSV fonctionne si elle respecte la structure des colonnes des feuilles "Toutes les exigences" et "Relations"
+
+![tutoImage](https://github.com/eemanon/requirementManager/blob/master/TutoExigenceManager.png)
