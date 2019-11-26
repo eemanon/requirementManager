@@ -9,21 +9,33 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Typography from '@material-ui/core/Typography'
 import Papa from 'papaparse';
 
-class AppBarManager extends React.Component {
+const styles = {
+  buttonRed:{
+    marginLeft: 100,
+    color: "red"
+  },
+  buttonGreen:{
+    marginLeft: 100,
+    color: "green"
+  }
+}
 
-    
+class AppBarManager extends React.Component {
     constructor(props){
         super(props) ; 
         this.state = {
             csvfile: null,
             categoriesArraydate: null,
-            relationsArrayData:null
+            relationsArrayData:null,
+            datatype: null,
+            colorRel: "red",
+            colorReq: "red"
         };
         this.inputOpenFileRef = React.createRef();
-        this.dataResult = null
-
+        this.dataResult = null;
+        this.updateData = this.updateData.bind(this);
     }
-
+    
     useStyles = () => { makeStyles(theme => ({
         root: {
           flexGrow: 1,
@@ -37,8 +49,16 @@ class AppBarManager extends React.Component {
       }))
     };
 
-    showOpenFileDlg = () => {
-        this.inputOpenFileRef.current.click()
+    showOpenFileRelationsDlg = () => {
+        this.inputOpenFileRef.current.click();
+        this.setState(state => {
+          return {
+            csvfile: this.state.csvfile,
+            categoriesArraydate: this.state.categoriesArraydate,
+            relationsArrayData:this.state.relationsArrayData,
+            datatype: "relations"
+          };
+        });
     };
 
     handleChange = event => {    
@@ -49,10 +69,48 @@ class AppBarManager extends React.Component {
       });
 
     };
-
+    showOpenFileCategoriesDlg = () => {
+      this.inputOpenFileRef.current.click();
+      this.setState(state => {
+        return {
+          csvfile: this.state.csvfile,
+          categoriesArraydate: this.state.categoriesArraydate,
+          relationsArrayData:this.state.relationsArrayData,
+          datatype: "categories"
+        };
+      });
+  };
     updateData(result) {      
        var data = result.data ;        
-        console.log(data);       
+        console.log(data);
+        
+      if(this.state.datatype==="categories"){
+        this.props.requirements(data); 
+        this.setState(state => {
+          return {
+            csvfile: this.state.csvfile,
+            categoriesArraydate: this.state.categoriesArraydate,
+            relationsArrayData:this.state.relationsArrayData,
+            datatype: "categories",
+            colorReq: "green",
+            colorRel: this.state.colorRel
+          };
+        });
+      }
+      else {
+        this.setState(state => {
+          return {
+            csvfile: this.state.csvfile,
+            categoriesArraydate: this.state.categoriesArraydate,
+            relationsArrayData:this.state.relationsArrayData,
+            datatype: "categories",
+            colorReq: this.state.colorReq,
+            colorRel: "green"
+          };
+        });
+        this.props.relations(data);  
+      }
+        
     }
 
     render(){
@@ -65,7 +123,7 @@ class AppBarManager extends React.Component {
                     <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" className={classes.title}>
-                    News
+                    Relation Visualizer
                     <input
                         className="csv-input"
                         type="file"
@@ -75,23 +133,23 @@ class AppBarManager extends React.Component {
                         onChange={this.handleChange.bind(this)}
                     />
                     </Typography>                                     
-                    <Button
+                    <Button 
                         variant="contained"
                         color="default"
-                        className={classes.button}
+                        style={this.state.colorReq==="red"?styles.buttonRed:styles.buttonGreen}
                         startIcon={<CloudUploadIcon />}
-                        onClick = {this.showOpenFileDlg.bind(this)}
+                        onClick = {this.showOpenFileCategoriesDlg.bind(this)}
                       >
                         Upload Categories
                       </Button>
                       <Button
                         variant="contained"
                         color="default"
-                        className={classes.button}
+                        style={this.state.colorRel==="red"?styles.buttonRed:styles.buttonGreen}
                         startIcon={<CloudUploadIcon />}
-                        onClick = {this.showOpenFileDlg.bind(this)}
+                        onClick = {this.showOpenFileRelationsDlg.bind(this)}
                       >
-                        Upload Relation
+                        Upload Relations
                       </Button>
                 </Toolbar>
             </AppBar>
