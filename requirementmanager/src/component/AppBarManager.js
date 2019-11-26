@@ -10,8 +10,13 @@ import Typography from '@material-ui/core/Typography'
 import Papa from 'papaparse';
 
 const styles = {
-  button:{
+  buttonRed:{
     marginLeft: 100,
+    color: "red"
+  },
+  buttonGreen:{
+    marginLeft: 100,
+    color: "green"
   }
 }
 
@@ -22,7 +27,9 @@ class AppBarManager extends React.Component {
             csvfile: null,
             categoriesArraydate: null,
             relationsArrayData:null,
-            datatype: null
+            datatype: null,
+            colorRel: "red",
+            colorReq: "red"
         };
         this.inputOpenFileRef = React.createRef();
         this.dataResult = null;
@@ -76,10 +83,34 @@ class AppBarManager extends React.Component {
     updateData(result) {      
        var data = result.data ;        
         console.log(data);
-      if(this.state.datatype==="categories")
-        this.props.requirements(data);      
-      else
+        
+      if(this.state.datatype==="categories"){
+        this.props.requirements(data); 
+        this.setState(state => {
+          return {
+            csvfile: this.state.csvfile,
+            categoriesArraydate: this.state.categoriesArraydate,
+            relationsArrayData:this.state.relationsArrayData,
+            datatype: "categories",
+            colorReq: "green",
+            colorRel: this.state.colorRel
+          };
+        });
+      }
+      else {
+        this.setState(state => {
+          return {
+            csvfile: this.state.csvfile,
+            categoriesArraydate: this.state.categoriesArraydate,
+            relationsArrayData:this.state.relationsArrayData,
+            datatype: "categories",
+            colorReq: this.state.colorReq,
+            colorRel: "green"
+          };
+        });
         this.props.relations(data);  
+      }
+        
     }
 
     render(){
@@ -105,7 +136,7 @@ class AppBarManager extends React.Component {
                     <Button 
                         variant="contained"
                         color="default"
-                        style={styles.button}
+                        style={this.state.colorReq==="red"?styles.buttonRed:styles.buttonGreen}
                         startIcon={<CloudUploadIcon />}
                         onClick = {this.showOpenFileCategoriesDlg.bind(this)}
                       >
@@ -114,7 +145,7 @@ class AppBarManager extends React.Component {
                       <Button
                         variant="contained"
                         color="default"
-                        style={styles.button}
+                        style={this.state.colorRel==="red"?styles.buttonRed:styles.buttonGreen}
                         startIcon={<CloudUploadIcon />}
                         onClick = {this.showOpenFileRelationsDlg.bind(this)}
                       >
